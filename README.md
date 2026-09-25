@@ -8,20 +8,6 @@ This repository serves as the single source of truth for service deployments, pr
 
 ## Architecture Workflow
 
-[ VS Code ] 
-       |
-       |  git push
-       v
-[ GitHub Repository ]
-       |
-       |  webhook / poll
-       v
-[ Portainer CE ] <--- Injected Secrets (Local .env)
-       |
-       |  docker.sock
-       v
-[ Containers on Fedora Server ] 
-
 <img width="2816" height="1536" alt="arch" src="https://github.com/user-attachments/assets/b7ffe95e-1aba-48f0-83ab-821b90fd1824" />
 
 ---
