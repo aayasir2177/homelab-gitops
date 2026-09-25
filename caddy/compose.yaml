@@ -2,7 +2,7 @@ services:
   caddy:
     image: caddy:2.11.4-alpine
     container_name: caddy
-    restart: unless-stopped
+    restart: always
     cap_add:
       - NET_ADMIN
     ports:
