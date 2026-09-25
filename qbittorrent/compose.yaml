@@ -1,0 +1,25 @@
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent:5.2.3
+    container_name: qbittorrent
+    environment:
+      - TZ=${TZ}
+      - WEBUI_PORT=${WEBUI_PORT}
+      - TORRENTING_PORT=${TORRENTING_PORT}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    ports:
+      - "${WEBUI_PORT}:${WEBUI_PORT}"
+      - "${TORRENTING_PORT}:${TORRENTING_PORT}/tcp"
+      - "${TORRENTING_PORT}:${TORRENTING_PORT}/udp"
+    volumes:
+      - /srv/qbittorrent/config:/config
+      - /srv/downloads:/downloads
+    restart: unless-stopped
+    networks:
+      - caddy_default
+    stop_grace_period: 10s
+
+networks:
+  caddy_default:
+    external: true

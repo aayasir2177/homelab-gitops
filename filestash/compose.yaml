@@ -1,0 +1,19 @@
+services:
+  app:
+    container_name: filestash
+    image: machines/filestash:latest
+    restart: unless-stopped
+    environment:
+    - APPLICATION_URL=
+    - CANARY=true
+    ports:
+    - "8334:8334"
+    volumes:
+    - /srv/filestash/data:/app/data/state/
+    - /srv:/srv:ro
+    networks:
+      - caddy_default
+
+networks:
+  caddy_default:
+    external: true
