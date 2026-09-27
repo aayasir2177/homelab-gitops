@@ -12,23 +12,21 @@ services:
       - --disable-csrf-token-checks
       - --insecure
       - --address=0.0.0.0:51515
-      - --server-username=admin
-      - --server-password=ChangeMeWebUISecret
+      - --server-username=${KOPIA_WEBUI_USER}
+      - --server-password=${KOPIA_WEBUI_PASSWORD}
     environment:
-      # Master Encryption Key for Google Drive Repository
-      KOPIA_PASSWORD: "ChangeMeMasterRepoPassword"
-      USER: "yasir"
+      KOPIA_PASSWORD: "${KOPIA_MASTER_PASSWORD}"
+      USER: "${KOPIA_SYSTEM_USER}"
     volumes:
-      # Kopia Internal Configuration & State (Persisted in /srv/kopia)
       - /srv/kopia/config:/app/config
       - /srv/kopia/cache:/app/cache
       - /srv/kopia/logs:/app/logs
-
-      # Google Drive Credentials (JSON key file)
+      - /srv:/data:ro
       - /srv/kopia/gdrive-key.json:/app/gdrive-key.json:ro
 
-      # Host Data Mounts to Backup (Read-Only)
-      - /srv:/data:ro
+    networks:
+      - caddy_default
 
-      # Shared mount directory for browsing/restoring past snapshots
-      - /srv/kopia/tmp:/tmp:shared
+networks:
+  caddy_default:
+    external: true
