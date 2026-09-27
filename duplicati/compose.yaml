@@ -1,0 +1,15 @@
+services:
+  duplicati:
+    image: duplicati/duplicati:2.4.0.0-stable
+    container_name: duplicati
+    ports:
+      - "8200:8200"
+    volumes:
+      - /srv/duplicati/data:/data
+    restart: unless-stopped
+    networks:
+      - caddy_default
+
+networks:
+  caddy_default:
+    external: true
