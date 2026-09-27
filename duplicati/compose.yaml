@@ -1,12 +1,15 @@
 services:
   duplicati:
-    image: duplicati/duplicati:2.4.0.0-stable
+    image: duplicati/duplicati:latest
     container_name: duplicati
+    restart: unless-stopped
+    environment:
+      - SETTINGS_ENCRYPTION_KEY=${SETTINGS_ENCRYPTION_KEY}
     ports:
       - "8200:8200"
     volumes:
       - /srv/duplicati/data:/data
-    restart: unless-stopped
+      - /srv:/source/srv:ro
     networks:
       - caddy_default
 
